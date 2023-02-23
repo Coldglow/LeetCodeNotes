@@ -7,6 +7,7 @@ import java.util.*;
 
 public class RightSideView {
     // 其实就是层次遍历的最后一个节点
+    // 或者先加右再加左，这样就是第一个节点，添加条件是i == 0
     public List<Integer> rightSideView(TreeNode root) {
         if (root == null) {
             return new ArrayList<>();

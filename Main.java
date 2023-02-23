@@ -5,7 +5,31 @@ import java.util.*;
 
 
 public class Main {
-
+    public List<Integer> rightSideView(TreeNode root) {
+        if (root == null) {
+            return new LinkedList<>();
+        }
+        Deque<TreeNode> deque = new LinkedList<>();
+        List<Integer> res = new LinkedList<>();
+        TreeNode cur;
+        deque.addLast(root);
+        while (!deque.isEmpty()) {
+            int size = deque.size();
+            for (int i = 0; i < size; i++) {
+                cur = deque.pollFirst();
+                if (cur.right != null) {
+                    deque.addLast(cur.right);
+                }
+                if (cur.left != null){
+                    deque.addLast(cur.left);
+                }
+                if (i == 0) {
+                    res.add(cur.val);
+                }
+            }
+        }
+        return res;
+    }
 
 
     public static void main(String[] args) {
