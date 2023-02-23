@@ -6,6 +6,7 @@ import java.util.*;
 public class MergeArray {
     // 单调栈不可行，因为无序
     public int[][] merge(int[][] intervals) {
+        char cha97 = 97;
         if (intervals.length == 0) {
             return new int[0][2];
         }
