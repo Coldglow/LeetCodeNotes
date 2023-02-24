@@ -5,35 +5,51 @@ import java.util.*;
 
 
 public class Main {
-    public List<Integer> rightSideView(TreeNode root) {
-        if (root == null) {
-            return new LinkedList<>();
-        }
-        Deque<TreeNode> deque = new LinkedList<>();
-        List<Integer> res = new LinkedList<>();
-        TreeNode cur;
-        deque.addLast(root);
-        while (!deque.isEmpty()) {
-            int size = deque.size();
-            for (int i = 0; i < size; i++) {
-                cur = deque.pollFirst();
-                if (cur.right != null) {
-                    deque.addLast(cur.right);
-                }
-                if (cur.left != null){
-                    deque.addLast(cur.left);
-                }
-                if (i == 0) {
-                    res.add(cur.val);
-                }
-            }
-        }
+    List<List<String>> res = new LinkedList<>();
+    Deque<String> stack = new ArrayDeque<>();
+    public List<List<String>> partition(String s) {
+        partitionStr(s.toCharArray(), 0);
         return res;
+    }
+
+    public void partitionStr(char[] chars, int start) {
+        if (start == chars.length) {
+            res.add(new LinkedList<>(stack));
+            return;
+        }
+
+        for (int i = start; i < chars.length; i++) {
+            if (!isPalindrome(chars, start, i)) {
+                continue;
+            }
+            stack.addLast(new String(chars, start, i - start + 1));
+            partitionStr(chars, i + 1);
+            stack.pollLast();
+        }
+    }
+
+    public boolean isPalindrome(char[] chars, int start, int end) {
+        while (start < end) {
+            if (chars[start] != chars[end]) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
     }
 
 
     public static void main(String[] args) {
-//        String s = "";
+        String s = "aab";
+        Main o = new Main();
+        List<List<String>> res = o.partition(s);
+        for (List<String> list : res) {
+            for (String str : list) {
+                System.out.print(str + " ");
+            }
+            System.out.println();
+        }
 //        ArrayList<Integer> a = new ArrayList<>(6);
 //        a.add(0, 5);
 //        a.add(0,4);

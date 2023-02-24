@@ -43,6 +43,8 @@ public class PalindromePartition {
     }
 
     public boolean isPalindrome(char[] chars, int left, int right) {
+        // 注意自增和自减操作，这俩操作是在while判断结束后就执行，
+        // 不是在while体执行完后才执行
         while (left < right) {
             if (chars[left] != chars[right]) {
                 return false;
@@ -54,7 +56,7 @@ public class PalindromePartition {
     }
 
     public static void main(String[] args) {
-        String str = "aba";
+        String str = "aab";
         PalindromePartition o = new PalindromePartition();
         List<List<String>> res = o.partition(str);
         for (List<String> list : res) {
