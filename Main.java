@@ -5,27 +5,35 @@ import java.util.*;
 
 
 public class Main {
-    List<List<String>> res = new LinkedList<>();
-    Deque<String> stack = new ArrayDeque<>();
-    public List<List<String>> partition(String s) {
-        partitionStr(s.toCharArray(), 0);
-        return res;
-    }
 
-    public void partitionStr(char[] chars, int start) {
-        if (start == chars.length) {
-            res.add(new LinkedList<>(stack));
-            return;
+    public int[] printNum() {
+        Scanner s = new Scanner(System.in);
+        int n = s.nextInt();
+        int m = s.nextInt();
+        int k = s.nextInt();
+        if ((m - 1) * (n - 1) < k) {
+            return null;
         }
-
-        for (int i = start; i < chars.length; i++) {
-            if (!isPalindrome(chars, start, i)) {
-                continue;
+        int[] res = new int[n];
+        Arrays.fill(res, 1);
+        if (m - 1 > k) {
+            res[0] = k + 1;
+            return res;
+        }
+        res[0] = m;
+        k -= m - 1;
+        for (int i = 2; i < n; i += 2) {
+            if (k - (m - 1) * 2 <= 0) {
+                break;
             }
-            stack.addLast(new String(chars, start, i - start + 1));
-            partitionStr(chars, i + 1);
-            stack.pollLast();
+            res[i] = m;
         }
+
+        if (k > 0) {
+            res[n - 1] += k;
+        }
+        System.out.println(k);
+        return res;
     }
 
     public boolean isPalindrome(char[] chars, int start, int end) {
@@ -41,15 +49,18 @@ public class Main {
 
 
     public static void main(String[] args) {
-        String s = "aab";
-        Main o = new Main();
-        List<List<String>> res = o.partition(s);
-        for (List<String> list : res) {
-            for (String str : list) {
-                System.out.print(str + " ");
-            }
-            System.out.println();
+        Scanner in = new Scanner(System.in);
+        while (in.hasNext()) {
+            int a = in.nextInt();
+            int b = in.nextInt();
+            System.out.println(a + b);
         }
+//        String s = "aab";
+//        Main o = new Main();
+//        int[] res = o.printNum();
+//        for (int n : res) {
+//            System.out.print(n + " ");
+//        }
 //        ArrayList<Integer> a = new ArrayList<>(6);
 //        a.add(0, 5);
 //        a.add(0,4);
