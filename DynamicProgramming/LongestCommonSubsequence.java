@@ -1,5 +1,5 @@
 // https://leetcode.cn/problems/longest-common-subsequence/
-package String;
+package DynamicProgramming;
 
 public class LongestCommonSubsequence {
     // 这个方法没改对
@@ -63,11 +63,50 @@ public class LongestCommonSubsequence {
                 }
             }
         }
+
+        System.out.println("-------------");
+        for (int i = 1; i < len1 + 1; i++) {
+            for (int j = 1; j < len2 + 1; j++) {
+                System.out.print(dp[i][j] + " ");
+            }
+            System.out.println();
+        }
         return dp[len1][len2];
     }
 
+    /*
+        2023.03.03  再次尝试写 直接用dp的思路
+        1. 数组定义：dp[i][j] 表示text1中 [0 ... i - 1] 和 text2中 [0 ... j - 1]之间最长公共序列的长度
+        2. 状态转移：
+            dp[i][j] = nums1[i - 1] == nums2[j - 1] ? max(dp[i][j-1], dp[i-1][j]) + 1 : max(dp[i][j-1], dp[i-1][j])
+        3. 初始化，dp[0][0] = 0
+        4. 左上角开始到右下角，结果为右下角的值
+     */
+    public int longestCommonSubsequenceDP(String text1, String text2) {
+        char[] ch1 = text1.toCharArray();
+        char[] ch2 = text2.toCharArray();
+        int n1 = ch1.length;
+        int n2 = ch2.length;
+        int[][] dp = new int[n1 + 1][n2 + 1];
+        for (int i = 1; i < n1 + 1; i++) {
+            for (int j = 1; j < n2 + 1; j++) {
+                dp[i][j] = ch1[i - 1] == ch2[j - 1] ? dp[i - 1][j - 1] + 1 : Math.max(dp[i - 1][j], dp[i][j - 1]);
+            }
+        }
+
+        System.out.println("-------------");
+        for (int i = 1; i < n1 + 1; i++) {
+            for (int j = 1; j < n2 + 1; j++) {
+                System.out.print(dp[i][j] + " ");
+            }
+            System.out.println();
+        }
+        return dp[n1][n2];
+    }
+
+
     public static void main(String[] args) {
         LongestCommonSubsequence obj = new LongestCommonSubsequence();
-        System.out.println(obj.lcsDp("mhunuzqrkzsnidwbun", "szulspmhwpazoxijwbq"));
+        System.out.println(obj.longestCommonSubsequenceDP("abbbb", "babab"));
     }
 }

@@ -1,5 +1,5 @@
 // https://leetcode.com/problems/maximum-subarray/
-package Array;
+package DynamicProgramming;
 
 import SlideWindows.MinWindow;
 
@@ -69,6 +69,19 @@ public class MaximumSubArray {
             } else {
                 sum += n;
             }
+            res = Math.max(res, sum);
+        }
+        return res;
+    }
+
+    /*
+        2023.03.03
+     */
+    public int maxSubArray_5(int[] nums) {
+        int sum = nums[0];
+        int res = sum;
+        for (int i = 1; i < nums.length; i++) {
+            sum = Math.max(sum + nums[i], nums[i]);
             res = Math.max(res, sum);
         }
         return res;
