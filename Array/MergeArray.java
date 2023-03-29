@@ -32,4 +32,32 @@ public class MergeArray {
 
         return res.toArray(new int[res.size()][]);
     }
+
+    /*
+        2023.03.29
+        先按照数组的start排序
+     */
+    public int[][] merge_2(int[][] intervals) {
+        Arrays.sort(intervals, new Comparator<int[]>() {
+            @Override
+            public int compare(int[] o1, int[] o2) {
+                return o1[0] - o2[0];
+            }
+        });
+
+        List<int[]> res = new LinkedList<>();
+        int[] prev = intervals[0];
+        for (int i = 1; i < intervals.length; i++) {
+            // 如果cur数组的开头小于等于prev数组的结尾，那么合并
+            if (intervals[i][0] > prev[1]) {
+                res.add(new int[] {prev[0], prev[1]});
+                prev = intervals[i];
+            } else {
+                prev[1] = Math.max(intervals[i][1], prev[1]);
+            }
+        }
+        res.add(new int[] {prev[0], prev[1]});
+
+        return res.toArray(new int[res.size()][]);
+    }
 }

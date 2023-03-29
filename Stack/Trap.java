@@ -54,9 +54,40 @@ public class Trap {
         return water;
     }
 
+
+    /*
+        2023.03.27
+        用两个数组求
+     */
+
+    public int trap_03(int[] height) {
+        int n = height.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        left[0] = -1;
+        right[n - 1] = -1;
+        int maxLeft = Math.max(height[0], -1);
+        int maxRight = Math.max(height[n - 1], -1);
+        for (int i = 1, j = n - 2; i < n && j > -1; i++, j--) {
+            left[i] = maxLeft < height[i] ? -1 : maxLeft;
+            right[j] = maxRight < height[j] ? -1 : maxRight;
+            maxLeft = Math.max(maxLeft, height[i]);
+            maxRight = Math.max(maxRight, height[j]);
+        }
+
+        int res = 0;
+        for (int i = 0; i < n; i++) {
+            int temp = Math.min(left[i], right[i]);
+            res += temp < 0 ? 0 : temp - height[i];
+        }
+
+        return res;
+    }
+
     public static void main(String[] args) {
-        int[] arr = new int[] {4,2,0,3,2,5};
+//        int[] arr = new int[] {4,2,0,3,2,5};
+        int[] arr = {0,1,0,2,1,0,1,3,2,1,2,1};
         Trap o = new Trap();
-        System.out.print(o.trap(arr));
+        System.out.print(o.trap_03(arr));
     }
 }
