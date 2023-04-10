@@ -81,6 +81,35 @@ public class MaxSlidingWindow {
         return res;
     }
 
+    /*
+        2023.04.10 单调队列
+        只记录有可能成为最大值的数的下标
+        看oneNote中data_structure的滑动窗口章节中的记录
+     */
+    public int[] maxSlidingWindow_03(int[] nums, int k) {
+        LinkedList<Integer> deque = new LinkedList<>();
+        int[] res = new int[nums.length - k + 1];
+        // 先初始化窗口
+        for (int i = 0; i < k; i++) {
+            while (deque.size() > 0 && nums[deque.peekLast()] < nums[i]) {
+                deque.pollLast();
+            }
+            deque.addLast(i);
+        }
+        res[0] = nums[deque.peekFirst()];
+        for (int i = k; i < nums.length; i++) {
+            if (i - k >= deque.peekFirst()) {
+                deque.pollFirst();
+            }
+            while (deque.size() > 0 && nums[deque.peekLast()] < nums[i]) {
+                deque.pollLast();
+            }
+            deque.addLast(i);
+            res[i - k + 1] = nums[deque.peekFirst()];
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         int[] arr = new int[] {1,3,-1,-3,5,3,6,7};
         int[] res = maxSlidingWindow2(arr, 3);
