@@ -105,9 +105,61 @@ public class MinWindow {
         return ansL == -1 ? "" : s.substring(ansL, ansR);
     }
 
+    /*
+        2023.04.12
+     */
+    public String minWindow2(String s, String t) {
+        if (s.length() < t.length()) {
+            return "";
+        }
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+        int validChar = 0, total = t.length();
+        int left = 0, right = 0;
+        int rLeft = -1, rRight = s.length();
+
+        while (!(validChar < total && right == s.length())) {
+            // right右移，扩充窗口
+            while(validChar != total && right < s.length()) {
+                // 查看right指向的字符是否在t中
+                Integer val = map.get(s.charAt(right));
+                // 如果val大于0，那么说明窗口中还缺少该字符，所以需要减去-1，validChar+1
+                // 如果val小于等于0，说明窗口中多余该字符，继续减去-1，但是validChar不加1
+                if (val != null) {
+                    if (val > 0) {
+                        validChar += 1;
+                    }
+                    map.put(s.charAt(right), val - 1);
+                }
+                right += 1;
+            }
+            // left右移，减小窗口
+            while (validChar == total) {
+                Integer val = map.get(s.charAt(left));
+                // 非t中的字符
+                if (val == null) {
+                    left += 1;
+                    continue;
+                }
+                if(right - left < rRight - rLeft) {   // 不存在多余的字符,记录一个答案
+                    rLeft = left;
+                    rRight = right;
+                }
+                if (val == 0) {
+                    validChar -= 1;
+                }
+                // 无论是否多余，都要加上1
+                map.put(s.charAt(left), val + 1);
+                left += 1;
+            }
+        }
+        return rLeft == -1 ? "" : s.substring(rLeft, rRight);
+    }
 
     public static void main(String[] args) {
         MinWindow min = new MinWindow();
-        System.out.println(min.minWindow1("ADOBECODEBANC", "ABC"));
+        System.out.println(min.minWindow2("ADOBECODEBANC", "ABC"));
     }
 }
