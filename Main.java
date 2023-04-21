@@ -6,45 +6,24 @@ import java.util.*;
 
 public class Main {
 
-    public int[] printNum() {
-        Scanner s = new Scanner(System.in);
-        int n = s.nextInt();
-        int m = s.nextInt();
-        int k = s.nextInt();
-        if ((m - 1) * (n - 1) < k) {
-            return null;
-        }
-        int[] res = new int[n];
-        Arrays.fill(res, 1);
-        if (m - 1 > k) {
-            res[0] = k + 1;
-            return res;
-        }
-        res[0] = m;
-        k -= m - 1;
-        for (int i = 2; i < n; i += 2) {
-            if (k - (m - 1) * 2 <= 0) {
-                break;
-            }
-            res[i] = m;
-        }
+    private List<List<Integer>> res;
+    private List<Integer> subSet;
 
-        if (k > 0) {
-            res[n - 1] += k;
-        }
-        System.out.println(k);
+    public List<List<Integer>> subsets(int[] nums) {
+        res = new LinkedList<>();
+        res.add(new LinkedList<>());
+        subSet = new LinkedList<>();
+        backTracking(nums, 0);
         return res;
     }
 
-    public boolean isPalindrome(char[] chars, int start, int end) {
-        while (start < end) {
-            if (chars[start] != chars[end]) {
-                return false;
-            }
-            start++;
-            end--;
+    public void backTracking(int[] arr, int index) {
+        for (int i = index; i < arr.length; i++) {
+            subSet.add(arr[i]);
+            res.add(new LinkedList<>(subSet));
+            backTracking(arr, i + 1);
+            subSet.remove(subSet.size() - 1);
         }
-        return true;
     }
 
 

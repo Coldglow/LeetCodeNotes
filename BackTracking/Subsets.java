@@ -55,6 +55,29 @@ public class Subsets {
         }
     }
 
+/* 2023-04-21
+
+    private List<List<Integer>> res;
+    private List<Integer> subSet;
+
+    public List<List<Integer>> subsets(int[] nums) {
+        res = new LinkedList<>();
+        res.add(new LinkedList<>());
+        subSet = new LinkedList<>();
+        backTracking(nums, 0);
+        return res;
+    }
+
+    public void backTracking(int[] arr, int index) {
+        for (int i = index; i < arr.length; i++) {
+            subSet.add(arr[i]);
+            res.add(new LinkedList<>(subSet));
+            backTracking(arr, i + 1);
+            subSet.remove(subSet.size() - 1);
+        }
+    }
+ */
+
     public static void main(String[] args) {
         int[] arr = new int[] {1,2,3};
         Subsets o = new Subsets();
