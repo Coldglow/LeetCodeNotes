@@ -22,6 +22,29 @@ public class BinarySearch {
         return -1;
     }
 
+    /**
+     * 2023年6月8日
+     * 二分, 注意边界条件
+     * @param nums 目标数组
+     */
+    public int binSearch(int[] nums, int target) {
+        int len = nums.length;
+        int left = 0, right = len - 1;
+        // 还是注意等于的情况
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
+                return mid;
+            }
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+
     public static int[] getRandomArray(int len, int max) {
         // 生成特定长度
         int[] arr = new int[len];

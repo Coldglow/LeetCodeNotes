@@ -20,4 +20,24 @@ public class RemoveElement {
         }
         return n;
     }
+
+    /**
+     * 2023年6月8日
+     * 其实就是把目标值放在数组最后面
+     * @param nums 目标数组
+     * @param val 目标元素
+     * @return ...
+     */
+    public int removeElement02 (int[] nums, int val) {
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            if (nums[left] != val) {
+                left++;
+                continue;
+            }
+            nums[left] = nums[right];
+            right--;
+        }
+        return left;
+    }
 }

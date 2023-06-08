@@ -4,6 +4,7 @@ package BinaryTree;
 import Structures.TreeNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PathSum {
@@ -54,6 +55,44 @@ public class PathSum {
         path.add(node.val);
         getPath(node.left, target, sum + node.val, path);
         getPath(node.right, target, sum + node.val, path);
+        path.remove(path.size() - 1);
+    }
+}
+
+
+/*
+2023.05.02
+ */
+class PathSum02 {
+    private List<List<Integer>> res = new LinkedList<>();
+    private List<Integer> path = new LinkedList<>();
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        if (root == null) {
+            return res;
+        }
+        getPath(root, 0, targetSum);
+        return res;
+    }
+
+    public void getPath(TreeNode node, int sum, int target) {
+        path.add(node.val);
+
+        if (node.left == null && node.right == null) {
+            if (sum + node.val == target) {
+                res.add(new LinkedList<>(path));
+            }
+            path.remove(path.size() - 1);
+            return;
+        }
+
+        if (node.left != null) {
+            getPath(node.left, sum + node.val, target);
+        }
+
+        if (node.right != null) {
+            getPath(node.right, sum + node.val, target);
+        }
+
         path.remove(path.size() - 1);
     }
 }

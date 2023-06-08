@@ -55,6 +55,33 @@ public class IsBST {
         return check2(node.right);
     }
 
+    /*
+    2023.05.02
+    二叉搜索树的中序遍历结果是升序的
+     */
+    public boolean isValidBST(TreeNode root) {
+        return DFS(root);
+    }
+
+    public boolean DFS(TreeNode node) {
+        if (node == null) {
+            return true;
+        }
+        // 先一直向左找到最左节点
+        if (!DFS(node.left)) {
+            return false;
+        }
+        // 从最左节点开始比较, 如果当前节点比上个节点大
+        // 说明升序, 是二叉搜索树, 否则返回false
+        if (node.val > this.preVal) {
+            this.preVal = node.val;
+        } else {
+            return false;
+        }
+        // 然后递归右节点
+        return DFS(node.right);
+    }
+
     public static void main(String[] args) {
         TreeNode n1 = new TreeNode(2);
         TreeNode n2 = new TreeNode(1);

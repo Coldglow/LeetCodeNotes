@@ -3,7 +3,10 @@ package Array;
 
 import java.util.AbstractMap;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class SortedSquares {
     /**
@@ -85,6 +88,28 @@ public class SortedSquares {
                 R--;
             }
             index--;
+        }
+        return res;
+    }
+
+    /**
+     * 2023年6月8日
+     * 直接双指针, 从大到小的顺序填充
+     * @param nums nums
+     * @return ...
+     */
+    public int[] sortedSquares02(int[] nums) {
+        int[] res = new int[nums.length];
+        int left = 0, right = nums.length - 1, i = nums.length - 1;
+        while (left <= right) {
+            if (Math.abs(nums[left]) >= Math.abs(nums[right])) {
+                res[i] = nums[left] * nums[left];
+                left++;
+            } else if (Math.abs(nums[left]) < Math.abs(nums[right])) {
+                res[i] = nums[right] * nums[right];
+                right--;
+            }
+            i--;
         }
         return res;
     }

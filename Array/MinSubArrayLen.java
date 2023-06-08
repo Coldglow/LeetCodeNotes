@@ -21,8 +21,28 @@ public class MinSubArrayLen {
         return res == nums.length + 1 ? 0 : res;
     }
 
-    // 还有一种解法就是用一个数组sum来记录 nums[0...i-1]范围的前缀和
-    // 所以i位置的和就是sum[i] + nums[i]
-    // 可以在sum数组中通过二分查找 找到 最大的 j使得sum[j] + nums[i] 大于等于 target
-    // 此时子数组的长度就是
+    /**
+     * 滑动窗口, 左闭右开
+     * @param target 目标数
+     * @param nums  数组
+     * @return  ...
+     */
+    public int minSubArrayLen02(int target, int[] nums) {
+        int left = 0, right = 0;
+        int ans = Integer.MAX_VALUE, sum = 0;
+        while (left <= right && right < nums.length) {
+            // 右扩张
+            while (sum < target && right < nums.length) {
+                sum += nums[right];
+                right++;
+            }
+            // 左收缩
+            while (sum >= target && left < right) {
+                ans = Math.min(ans, right - left);
+                sum -= nums[left];
+                left++;
+            }
+        }
+        return ans == Integer.MAX_VALUE ? 0 : ans;
+    }
 }
