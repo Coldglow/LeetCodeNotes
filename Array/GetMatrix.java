@@ -31,9 +31,41 @@ public class GetMatrix {
         return res;
     }
 
+    /*
+        2023年6月13日
+     */
+    private int[][] generateMatrix2(int n) {
+        int curNum = 1;
+        int left = 0, right = n -1, top = 0, bot = n - 1;
+        int[][] res = new int[n][n];
+
+        while (curNum <= n * n) {
+            for (int i = left; i <= right; i++) {
+                res[top][i] = curNum++;
+            }
+            top++;
+
+            for (int i = top; i <= bot; i++) {
+                res[i][right] = curNum++;
+            }
+            right--;
+
+            for (int i = right; i >= left; i--) {
+                res[bot][i] = curNum++;
+            }
+            bot--;
+
+            for (int i = bot; i >= top; i--) {
+                res[i][left] = curNum++;
+            }
+            left++;
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         GetMatrix obj = new GetMatrix();
-        int[][] res = obj.getMatrix(3);
+        int[][] res = obj.generateMatrix2(3);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.print(res[i][j] + " ");
