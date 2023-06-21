@@ -1,4 +1,4 @@
-package Others;// https://leetcode.cn/problems/string-to-integer-atoi/
+package Simulation;// https://leetcode.cn/problems/string-to-integer-atoi/
 
 import java.math.BigDecimal;
 import java.util.Arrays;

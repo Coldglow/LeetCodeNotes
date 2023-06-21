@@ -1,5 +1,5 @@
 // https://leetcode.cn/problems/first-missing-positive/
-package Others;
+package Simulation;
 
 /**
  * @author David Wong

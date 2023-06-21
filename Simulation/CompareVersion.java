@@ -1,6 +1,4 @@
-package Others;
-
-import java.util.Arrays;
+package Simulation;
 
 /**
  * @author David Wong

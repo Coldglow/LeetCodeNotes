@@ -1,6 +1,4 @@
-package Others;
-
-import java.util.LinkedList;
+package Simulation;
 
 /**
  * @author David Wong

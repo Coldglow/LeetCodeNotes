@@ -1,4 +1,4 @@
-package Others;
+package Simulation;
 
 /**
  * @author David Wong
