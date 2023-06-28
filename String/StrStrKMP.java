@@ -1,6 +1,8 @@
 // https://leetcode.cn/problems/find-the-index-of-the-first-occurrence-in-a-string/
 package String;
 
+import test.Test;
+
 import java.util.Arrays;
 
 public class StrStrKMP {

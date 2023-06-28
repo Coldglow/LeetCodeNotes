@@ -26,17 +26,24 @@ public class WordBreak {
     public boolean wordBreak(String s, List<String> wordDict) {
         HashSet<String> set = new HashSet<>(wordDict);
         int n = s.length();
-        boolean[] dp = new boolean[n + 1];
+        boolean[] dp = new boolean[n + 1];   // boolean类型数组默认初始化为false
         dp[0] = true;
-        System.out.println(s);
         for (int i = 1; i <= n; i++) {
+            // 如果dp[i]已经是true, 那么无需再重新寻找
             for (int j = 0; j < i && !dp[i]; j++) {
+                // substring(0, i)是左闭右开区间
+                // s可以被分成[0 ... j - 1] 和 [j ... i - 1]两部分需要满足两个条件
+                //  1. [0 ... j - 1]这部分包含在字典中, 对应到dp数组就是dp[j]
+                //  2. [j ... i - 1]也包含在字典中, 对应的就是set.contains(substring(j, i))
+                // 如果两个条件都满足, 则说明 [0 ... i - 1]的部分可以被字典中的单词组成
+                // 不一定是被一个单词组成, 可以是多个单词组成
+                // 这也是为什么dp[0] 要初始化为true, 否则当找到s能够被字典中的单词表示的第一部分时
+                // 如果dp[0] = false, 那么之后永远都找不到答案
                 if (set.contains(s.substring(j, i)) && dp[j]) {
                     dp[i] = true;
                     break;
                 }
             }
-            System.out.println(Arrays.toString(dp));
         }
         return dp[n];
     }
@@ -47,6 +54,7 @@ public class WordBreak {
         wordDict.add("leet");
         wordDict.add("code");
         WordBreak o = new WordBreak();
-        o.wordBreak(s, wordDict);
+//        o.wordBreak(s, wordDict);
+//        System.out.println("123456".substring(0, 3));
     }
 }
